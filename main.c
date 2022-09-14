@@ -29,11 +29,10 @@ int main(void) {
 	int sum = 0;
 	int difference=0;
 	char filename[BUFFER];
-	FILE *fp_read = NULL;
 	FILE *fp_write = NULL;
 		for (int a = NUMBER; a < NUMBER+100*TIER; a++) {
 			FILE * fp = NULL;
-			sprintf(filename, "/Users/watanabeshun/Documents/Benchmark/%d-%d-%d/%05d.txt", TIER, STACK, nblock, a);
+			sprintf(filename, "/home/lab02/s-watanabe/デスクトップ/BlockRelocationProblem/distinctive-double--1/Benchmark/%d-%d-%d/%05d.txt", TIER, STACK, nblock, a);
 			printf("%s\n", filename);
 
 			//	読み込みモードでファイルを開く
@@ -71,23 +70,14 @@ int main(void) {
 			fclose(fp);
 
 			if (a % 100 == 1) {
-				sprintf(filename, "/Users/watanabeshun/Documents/Benchmark/%d-%d-%d.csv", TIER, STACK, nblock);
-				fp_read=fopen(filename, "r");
-				sprintf(filename, "/Users/watanabeshun/Documents/Benchmark/%d-%d-%d_unfixed.csv", TIER, STACK, nblock);
+				sprintf(filename, "/home/lab02/s-watanabe/デスクトップ/BlockRelocationProblem/distinctive-double--1/Benchmark/%d-%d-%d_unfixed.csv", TIER, STACK, nblock);
 				fp_write = fopen(filename, "w");
-			}
-			fscanf(fp_read, "%d ", &x);
-			if (x != min_relocation) {
-				printf("missmatch\n");
-				printf("%d\n", a);
-				miss++;
 			}
 			//「fprintfExample.txt」に「aは100です」と書き込む
     		fprintf(fp_write, "%d\n", min_relocation);
 		Array_clear(stack);
 		if (a % 100 == 0) {
 				nblock++;
-				fclose(fp_read);
 				fclose(fp_write);
 			}
 		}
