@@ -25,7 +25,6 @@ int main(void) {
 	int nblock = NBLOCK;
 	int i, j, x, l;
 	int k = 0;
-	int miss=0;
 	int sum = 0;
 	int difference=0;
 	char filename[BUFFER];
@@ -83,6 +82,6 @@ int main(void) {
 		}
 	Array_terminate(stack);
 	clock_t end=clock();
-	printf("time:%f,match:%d,missmatch:%d,ave_relocation:%f,ave_difference%f\n", (double)(end - start) / CLOCKS_PER_SEC, k,miss,(double)sum/(100*TIER),(double)difference/(100*TIER-k));
+	printf("time:%f,match:%d,ave_relocation:%f,ave_difference%f\n", (double)(end - start) / CLOCKS_PER_SEC, k,(double)sum/(100*TIER),(double)difference/(100*TIER-k));
 	return 0;
 }
