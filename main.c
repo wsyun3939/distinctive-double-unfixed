@@ -58,7 +58,7 @@ int main(void) {
 			Array_print(stack);
 			int UB=UpperBound(stack);
 			int UB_cur = LB1;
-			int min_relocation = branch_and_bound(stack, 100, UB_cur, LB1, both);
+			int min_relocation = branch_and_bound(stack, UB, UB_cur, LB1, both,clock());
 			//int min_relocation = enumerate_relocation(stack, depth,both);
 			sum += min_relocation;
 			if (min_relocation == LB1) {
@@ -69,7 +69,7 @@ int main(void) {
 			fclose(fp);
 
 			if (a % 100 == 1) {
-				sprintf(filename, "/home/lab02/s-watanabe/デスクトップ/BlockRelocationProblem/distinctive-double--1/Benchmark/%d-%d-%d_unfixed.csv", TIER, STACK, nblock);
+				sprintf(filename, "../Benchmark/%d-%d-%d_unfixed.csv", TIER, STACK, nblock);
 				fp_write = fopen(filename, "w");
 			}
 			//「fprintfExample.txt」に「aは100です」と書き込む
