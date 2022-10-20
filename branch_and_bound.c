@@ -138,7 +138,7 @@ int branch_and_bound(IntDequeue *q, int UB, int UB_cur, int LB, direction Dir,cl
 					return MinRelocation;
 				}			
 				insert_media(q_temp, 0);
-				if (branch_and_bound(q_temp, UB, UB_cur, LB_temp, DirNext)) {
+				if (branch_and_bound(q_temp, UB, UB_cur, LB_temp, DirNext,start)) {
 					Array_terminate(q_temp);
 					free(q_temp);
 					return MinRelocation;
@@ -160,7 +160,7 @@ int branch_and_bound(IntDequeue *q, int UB, int UB_cur, int LB, direction Dir,cl
 					for(j=STACK-1;j>0;j--){
 					if(BG_index[j]==0){ //BG積み替えが可能
 						Enque(&q_temp[j],PriorityEdge,dir);
-						if (branch_and_bound(q_temp, UB, UB_cur, LB_temp, DirNext)) {
+						if (branch_and_bound(q_temp, UB, UB_cur, LB_temp, DirNext,start)) {
 						Array_terminate(q_temp);
 						free(q_temp);
 						return MinRelocation;
@@ -178,7 +178,7 @@ int branch_and_bound(IntDequeue *q, int UB, int UB_cur, int LB, direction Dir,cl
 					for(j=STACK-1;j>0;j--){
 					if(BG_index[j]==1){ //BG積み替え不可能
 						Enque(&q_temp[j],PriorityEdge,dir);
-						if (branch_and_bound(q_temp, UB, UB_cur, LB_temp+1, DirNext)) {
+						if (branch_and_bound(q_temp, UB, UB_cur, LB_temp+1, DirNext,start)) {
 						Array_terminate(q_temp);
 						free(q_temp);
 						return MinRelocation;
@@ -202,7 +202,7 @@ int branch_and_bound(IntDequeue *q, int UB, int UB_cur, int LB, direction Dir,cl
 					for(j=STACK-1;j>0;j--){
 					if(BG_index[j]==0){ //BG積み替え可能
 						Enque(&q[j],PriorityEdge,dir);
-						if (branch_and_bound(q, UB, UB_cur, LB_temp, dir)) {
+						if (branch_and_bound(q, UB, UB_cur, LB_temp, dir,start)) {
 							return MinRelocation;
 						}
 						Deque(&q[j],&num_ret,dir);
@@ -219,7 +219,7 @@ int branch_and_bound(IntDequeue *q, int UB, int UB_cur, int LB, direction Dir,cl
 					for(j=STACK-1;j>0;j--){
 					if(BG_index[j]==1){ //BG積み替え不可能
 						Enque(&q[j],PriorityEdge,dir);
-						if (branch_and_bound(q, UB, UB_cur, LB_temp+1, dir)) {
+						if (branch_and_bound(q, UB, UB_cur, LB_temp+1, dir,start)) {
 						return MinRelocation;
 					}
 					Deque(&q[j],&num_ret,dir);
@@ -247,7 +247,7 @@ int branch_and_bound(IntDequeue *q, int UB, int UB_cur, int LB, direction Dir,cl
 		printf("UB++\n");
 #endif
 
-		if (branch_and_bound(q, UB,UB_cur, LB,both)) {
+		if (branch_and_bound(q, UB,UB_cur, LB,both,start)) {
 			return MinRelocation;
 		}
 		return -1;
