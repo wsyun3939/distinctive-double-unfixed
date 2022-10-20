@@ -31,7 +31,7 @@ int main(void) {
 	FILE *fp_write = NULL;
 		for (int a = NUMBER; a < NUMBER+100*TIER; a++) {
 			FILE * fp = NULL;
-			sprintf(filename, "/home/lab02/s-watanabe/デスクトップ/BlockRelocationProblem/distinctive-double--1/Benchmark/%d-%d-%d/%05d.txt", TIER, STACK, nblock, a);
+			sprintf(filename, "../Benchmark/%d-%d-%d/%05d.txt", TIER, STACK, nblock, a);
 			printf("%s\n", filename);
 
 			//	読み込みモードでファイルを開く
@@ -56,7 +56,7 @@ int main(void) {
 			qsort(stack, STACK, sizeof(IntDequeue), (int(*)(const void *, const void *))pricmp);
 			printf("sort:\n");
 			Array_print(stack);
-			//int UB=UpperBound(stack,both);
+			int UB=UpperBound(stack);
 			int UB_cur = LB1;
 			int min_relocation = branch_and_bound(stack, 100, UB_cur, LB1, both);
 			//int min_relocation = enumerate_relocation(stack, depth,both);
