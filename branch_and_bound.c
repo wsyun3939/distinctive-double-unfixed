@@ -7,7 +7,7 @@
 
 
 #ifdef EITHER
-int branch_and_bound(IntDequeue *q, int UB, int UB_cur, int LB, direction Dir) {
+int branch_and_bound(IntDequeue *q, int UB, int UB_cur, int LB, direction Dir,clock_t start) {
 	static int num_ret;
 	static int depth = 0;
 	static int SecondPosition = 0;
@@ -25,6 +25,13 @@ int branch_and_bound(IntDequeue *q, int UB, int UB_cur, int LB, direction Dir) {
 	direction dir = Dir;
 	direction DirNext = Dir;
 	IntDequeue *q_temp = NULL;
+	
+	clock_t end;
+	end=clock();
+	if(((double)(end-start)/CLOCKS_PER_SEC)>7200){
+		depth=0;
+		return -1;
+	}
 	switch (dir)
 	{
 	case both:
