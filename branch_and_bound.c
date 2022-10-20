@@ -25,16 +25,6 @@ int branch_and_bound(IntDequeue *q, int UB, int UB_cur, int LB, direction Dir) {
 	direction dir = Dir;
 	direction DirNext = Dir;
 	IntDequeue *q_temp = NULL;
-	if(Array_check(q)==1){
-
-		#if TEST==0
-		printf("ブロック数が３個以下\n");
-#endif
-
-		MinRelocation=LB+depth;
-		depth=0;
-		return MinRelocation;
-	}
 	switch (dir)
 	{
 	case both:
