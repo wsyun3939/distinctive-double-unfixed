@@ -17,7 +17,7 @@ typedef struct {
 }	LB_idx;
 #endif
 
-int branch_and_bound(IntDequeue *q,int UB,int UB_cur,int LB,direction Dir);
+int branch_and_bound(IntDequeue *q,int UB,int UB_cur,int LB,direction Dir,clock_t start);
 
 int insert_sort(IntDequeue *q);
 
