@@ -21,6 +21,9 @@ Nblocking_lower_again:下側から移動させた後もブロッキングブロ�
 int main(void)
 {
 	clock_t start = clock();
+	clock_t UB_lapse = 0;
+	clock_t sol_lapse = 0;
+
 	IntDequeue *stack = malloc(STACK * (sizeof *stack));
 	Array_initialize(stack);
 	int nblock = NBLOCK;
@@ -37,6 +40,7 @@ int main(void)
 
 	char filename[BUFFER];
 	FILE *fp_write = NULL;
+
 	for (int a = NUMBER; a < NUMBER + 100 * TIER; a++)
 	{
 		FILE *fp = NULL;
@@ -65,11 +69,16 @@ int main(void)
 		qsort(stack, STACK, sizeof(IntDequeue), (int (*)(const void *, const void *))pricmp);
 		printf("sort:\n");
 		Array_print(stack);
-		int UB = UpperBound(stack);
 		int UB_cur = LB1;
+
+		clock_t time_start = clock();
+		int UB = UpperBound(stack);
+		UB_lapse += clock() - time_start;
+
+		time_start = clock();
 		int min_relocation = branch_and_bound(stack, UB, UB_cur, LB1, both, clock());
-		// int min_relocation = enumerate_relocation(stack, depth,both);
-		sum += min_relocation;
+		sol_lapse += clock() - time_start;
+
 		if (min_relocation == -1)
 		{
 			timeup++;
@@ -108,6 +117,11 @@ int main(void)
 	}
 	Array_terminate(stack);
 	clock_t end = clock();
+
+	putchar('\n');
 	printf("time:%f,match:%d,ave:%f,gap:%f,timeup:%d,infeasible:%d,UB_gap:%f\n", (double)(end - start) / CLOCKS_PER_SEC, k, (double)sum / (100 * TIER), (double)gap / (100 * TIER - k), timeup, infeasible, (double)UB_gap / (100 * TIER - timeup - infeasible));
+
+	printf("UB_lapse:%f,sol_lapse:%f\n", (double)UB_lapse / CLOCKS_PER_SEC, (double)sol_lapse / CLOCKS_PER_SEC);
+	
 	return 0;
 }
