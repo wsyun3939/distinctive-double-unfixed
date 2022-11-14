@@ -30,7 +30,7 @@ int branch_and_bound(IntDequeue *q, int UB, int UB_cur, int LB, direction Dir, c
 
 	clock_t end;
 	end = clock();
-	if (((double)(end - start) / CLOCKS_PER_SEC) > 7200)
+	if (((double)(end - start) / CLOCKS_PER_SEC) > 1800)
 	{
 		depth = 0;
 		return -1;
@@ -109,6 +109,15 @@ int branch_and_bound(IntDequeue *q, int UB, int UB_cur, int LB, direction Dir, c
 		{
 			PriorityEdge = q[0].que[(q[0].front + q[0].num - 1) % q[0].max];
 			SecondPosition = q[0].que[(q[0].front + q[0].num - 2) % q[0].max];
+		}
+		int num_open = 0;
+		for (int n = 1; n <= STACK - 1; n++)
+		{
+			num_open += TIER - q[n].num;
+		}
+		if (num_open < nblocking(q, dir))
+		{
+			continue;
 		}
 		LB_temp -= q[0].LB;
 		Deque(q, &num_ret, dir);
