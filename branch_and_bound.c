@@ -96,7 +96,7 @@ int branch_and_bound(IntDequeue *q, int UB, int UB_cur, int LB, direction Dir, c
 			return MinRelocation;
 		}
 	}
-	//　積み替え操作　
+	// 　積み替え操作　
 	depth++;
 
 #if TEST == 0
@@ -108,7 +108,7 @@ int branch_and_bound(IntDequeue *q, int UB, int UB_cur, int LB, direction Dir, c
 	if (dir == both)
 		dir = q[0].que[q[0].front] < q[0].que[(q[0].front + q[0].num - 1) % q[0].max] ? lower : upper;
 	for (k = 0; k <= 1; k++)
-	{ //下界値を与える方向から順に積み替えを吟味する
+	{ // 下界値を与える方向から順に積み替えを吟味する
 		LB_temp = LB;
 		if (dir == lower)
 		{
@@ -137,13 +137,13 @@ int branch_and_bound(IntDequeue *q, int UB, int UB_cur, int LB, direction Dir, c
 		else
 		{
 			if (SecondPosition == q[0].que[q[0].min_idx])
-			{ //積み替え後，取り出しが可能な場合
+			{ // 積み替え後，取り出しが可能な場合
 				DirNext = both;
 				q_temp = malloc(STACK * (sizeof *q_temp));
 				Array_initialize(q_temp);
 				Array_copy(q_temp, q);
 				if (PriorityEdge == q[0].que[q[0].min_idx] + 1)
-				{ //ドミナンス
+				{ // ドミナンス
 
 #if TEST == 0
 					printf("Priority Retrieval:%d\n", num_ret);
